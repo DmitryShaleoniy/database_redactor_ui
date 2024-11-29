@@ -1,0 +1,41 @@
+SELECT * FROM rows;
+
+SELECT * FROM users_role;
+SELECT * FROM clients
+
+SELECT * FROM schedule;
+SELECT * FROM types;
+
+SELECT * FROM rows;
+
+SELECT * FROM schedule;
+
+SELECT * FROM rows;
+
+SELECT * FROM schedule;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
