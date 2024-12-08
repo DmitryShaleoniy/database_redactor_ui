@@ -1,4 +1,14 @@
-SELECT * FROM rows;
+
+SELECT * FROM rides JOIN autopark ON rides.car_number = autopark.car_number WHERE autopark.city = 'Moskow' AND rides.start_time > '2020-06-01' AND rides.end_time < '2020-07-01'
+SELECT * FROM rides WHERE car LIKE 'Mercedes %'
+SELECT * FROM rides WHERE car LIKE 'KIA %'
+SELECT * FROM rides WHERE driver_name LIKE 'SOFIA %'
+SELECT * FROM rides WHERE driver_name='% SOFIA'
+INSERT INTO drivers (licence, driver_name, city, birthday, licence_date) VALUES ('9928544798', 'SOFIA CHEKMAREVA', 'Penza', '2004-11-29', '2022-12-28');
+INSERT INTO rides (driver, car, car_number, ride_mileage, start_time, end_time)
+VALUES ('9928544798', 'Audi A5', '2XTE8058', 40, '2024-12-05 16:00:00', '2024-12-05 18:00:00')
+UPDATE drivers SET birthday = '2005-06-27' WHERE licence = '2147483647'
+SELECT * FROM drivers WHERE licence = '2147483647'SELECT * FROM rows;
 
 SELECT * FROM users_role;
 SELECT * FROM clients
@@ -14,6 +24,14 @@ SELECT * FROM rows;
 
 SELECT * FROM schedule;
 
+CREATE TABLE goyda
+	(id INT PRIMARY KEY,
+	name VARCHAR(30)
+		)
+
+SELECT * FROM lessons_kk
+
+DELETE FROM lessons_kk;
 
 
 
@@ -21,6 +39,112 @@ SELECT * FROM schedule;
 
 
 
+
+INSERT INTO cars(name, class, base_cost) VALUES
+('Audi A5', 'B', 46),
+('Cherry Tiggo 4 Pro', 'E', 17),
+('Haval Jolion', 'C', 17),
+('Hyundai Solaris', 'E', 10),
+('KIA Rio', 'E', 15),
+('Mercedes E 200', 'B', 30),
+('Skoda Octavia', 'E', 13),
+('Skoda Rapid', 'E', 16),
+('Volkswagen Tiguan', 'С', 19),
+('Wang Jialin', 'C', 20);
+
+CREATE TABLE city_rates (
+  name varchar(13) NOT NULL,
+  rate float DEFAULT NULL
+)
+INSERT INTO city_rates (name, rate) VALUES
+('Moskow', 1.8),
+('Penza', 1.32),
+('Yekaterinburg', 1.64);
+
+CREATE TABLE drivers (
+  licence varchar(10) PRIMARY KEY,
+  driver_name varchar(50) DEFAULT NULL,
+  age int DEFAULT NULL,
+  exp int DEFAULT NULL,
+  city varchar(13) DEFAULT NULL,
+  rate float DEFAULT NULL,
+  birthday date DEFAULT NULL,
+  licence_date date DEFAULT NULL
+)
+CREATE TABLE autopark (
+  car_number varchar(9) PRIMARY KEY,
+  name varchar(50) DEFAULT NULL,
+  mileage int DEFAULT NULL,
+  city varchar(13) DEFAULT NULL
+)
+CREATE TABLE cars (
+  name varchar(50) PRIMARY KEY,
+  class varchar(1) DEFAULT NULL,
+  base_cost int DEFAULT NULL
+)
+INSERT INTO cars (name, class, base_cost) VALUES
+('Audi A5', 'B', 46),
+('Cherry Tiggo 4 Pro', 'E', 17),
+SELECT * FROM city_rates;
+('Haval Jolion', 'C', 17),
+('Hyundai Solaris', 'E', 10),
+('KIA Rio', 'E', 15),
+('Mercedes E 200', 'B', 30),
+('Skoda Octavia', 'E', 13),
+('Skoda Rapid', 'E', 16),
+('Volkswagen Tiguan', 'С', 19),
+('Wang Jialin', 'C', 20);
+
+CREATE TABLE city_rates (
+  name varchar(13) PRIMARY KEY,
+  rate float DEFAULT NULL
+)
+CREATE TABLE drivers (
+  licence varchar(10) PRIMARY KEY,
+  driver_name varchar(50) DEFAULT NULL,
+  age int DEFAULT NULL,
+  exp int DEFAULT NULL,
+  city varchar(13) DEFAULT NULL,
+  rate float DEFAULT NULL,
+  birthday date DEFAULT NULL,
+  licence_date date DEFAULT NULL
+)
+ALTER TABLE autopark
+  ADD CONSTRAINT CITY_name FOREIGN KEY (city) REFERENCES city_rates (name) ON DELETE CASCADE,
+  ADD CONSTRAINT car_name FOREIGN KEY (name) REFERENCES cars (name) ON DELETE CASCADE;
+
+ALTER TABLE drivers ADD CONSTRAINT city FOREIGN KEY (city) REFERENCES city_rates (name) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT INTO autopark (car_number, name, mileage, city) VALUES ('2XCA48196', 'Audi A5', 74924, 'Yekaterinburg'), ('5TTH9296', 'Audi A5', 77506, 'Yekaterinburg'), ('2AEM7096', 'Audi A5', 79785, 'Yekaterinburg'), ('5CPO5666', 'Audi A5', 99560, 'Yekaterinburg'), ('8PAE90196', 'Audi A5', 86890, 'Yekaterinburg'), ('3BCC0296', 'Audi A5', 80383, 'Yekaterinburg'), ('2YEX7766', 'Audi A5', 72666, 'Yekaterinburg')
+INSERT INTO autopark (car_number, name, mileage, city) VALUES ('8MPK66196', 'Mercedes E 200', 95895, 'Yekaterinburg'), ('1TKC2196', 'Mercedes E 200', 101984, 'Yekaterinburg'), ('0BYA9266', 'Mercedes E 200', 74677, 'Yekaterinburg'), ('5KMA04196', 'Mercedes E 200', 89812, 'Yekaterinburg'), ('2TBH12196', 'Mercedes E 200', 71455, 'Yekaterinburg'), ('1YHT27196', 'Mercedes E 200', 85404, 'Yekaterinburg'), ('2BBK91196', 'Mercedes E 200', 79732, 'Yekaterinburg')
+
+INSERT INTO autopark (car_number, name, mileage, city) VALUES ('0XAE6496', 'Wang Jialin', 99871, 'Yekaterinburg'), ('1AYC9696', 'Wang Jialin', 93529, 'Yekaterinburg'), ('1KKC7896', 'Wang Jialin', 90513, 'Yekaterinburg'), ('4HYX4066', 'Wang Jialin', 78942, 'Yekaterinburg'), ('6CBE4996', 'Wang Jialin', 78409, 'Yekaterinburg'), ('9PPX60196', 'Wang Jialin', 85841, 'Yekaterinburg'), ('5EOB0066', 'Wang Jialin', 74600, 'Yekaterinburg'), ('5CYB97196', 'Wang Jialin', 79604, 'Yekaterinburg'), ('5XAE5596', 'Wang Jialin', 73552, 'Yekaterinburg'), ('4XMY8596', 'Wang Jialin', 93001, 'Yekaterinburg'), ('9XAY74196', 'Wang Jialin', 90017, 'Yekaterinburg'), ('8OKO8366', 'Wang Jialin', 99215, 'Yekaterinburg'), ('9MEO14196', 'Wang Jialin', 97596, 'Yekaterinburg'), ('0PYE7596', 'Wang Jialin', 81479, 'Yekaterinburg'), ('7EAX6366', 'Wang Jialin', 98371, 'Yekaterinburg'), ('4BMA1696', 'Wang Jialin', 102708, 'Yekaterinburg'), ('1XPE05196', 'Wang Jialin', 94230, 'Yekaterinburg'), ('4YHT7166', 'Wang Jialin', 80214, 'Yekaterinburg'), ('7OXT9396', 'Wang Jialin', 90966, 'Yekaterinburg'), ('7XOB8096', 'Wang Jialin', 84717, 'Yekaterinburg'), ('7PEP4196', 'Wang Jialin', 102373, 'Yekaterinburg'), ('3HCO2266', 'Wang Jialin', 82299, 'Yekaterinburg'), ('3HHK45196', 'Wang Jialin', 88803, 'Yekaterinburg'), ('6HAT9466', 'Wang Jialin', 102337, 'Yekaterinburg'), ('1BMC3296', 'Wang Jialin', 92337, 'Yekaterinburg'), ('7CAE2896', 'Wang Jialin', 77760, 'Yekaterinburg'), ('1TBH9796', 'Wang Jialin', 77040, 'Yekaterinburg'), ('7KKO94196', 'Wang Jialin', 78521, 'Yekaterinburg'), ('4HCO5466', 'Wang Jialin', 96898, 'Yekaterinburg'), ('7XMK1796', 'Wang Jialin', 86316, 'Yekaterinburg'), ('7PCK4196', 'Wang Jialin', 70536, 'Yekaterinburg'), ('0TPE78196', 'Wang Jialin', 96987, 'Yekaterinburg'), ('2KKK3796', 'Wang Jialin', 80225, 'Yekaterinburg'), ('7BHX4296', 'Wang Jialin', 91847, 'Yekaterinburg'), ('0PTO0496', 'Wang Jialin', 81072, 'Yekaterinburg'), ('5OXA3366', 'Wang Jialin', 74545, 'Yekaterinburg'), ('0KTB7466', 'Wang Jialin', 101717, 'Yekaterinburg'), ('9CYY91196', 'Wang Jialin', 75162, 'Yekaterinburg'), ('8MHY30196', 'Wang Jialin', 84594, 'Yekaterinburg'), ('4KKB4996', 'Wang Jialin', 88771, 'Yekaterinburg'), ('0CHM3866', 'Wang Jialin', 86631, 'Yekaterinburg'), ('9YME0666', 'Wang Jialin', 79532, 'Yekaterinburg'), ('0AXB5966', 'Wang Jialin', 86741, 'Yekaterinburg'), ('1CBC81196', 'Wang Jialin', 83095, 'Yekaterinburg'), ('5MCY3466', 'Wang Jialin', 88222, 'Yekaterinburg'), ('5AOH9896', 'Wang Jialin', 79622, 'Yekaterinburg'), ('5TCB2066', 'Wang Jialin', 90081, 'Yekaterinburg'), ('4HYH3196', 'Wang Jialin', 96183, 'Yekaterinburg'), ('1HBH9396', 'Wang Jialin', 91138, 'Yekaterinburg'), ('6OTK8966', 'Wang Jialin', 79790, 'Yekaterinburg'), ('9AXB4666', 'Wang Jialin', 94111, 'Yekaterinburg'), ('7YHC5766', 'Wang Jialin', 98091, 'Yekaterinburg'), ('8CMH5496', 'Wang Jialin', 76955, 'Yekaterinburg'), ('2XTO99196', 'Wang Jialin', 81326, 'Yekaterinburg'), ('6HBH92196', 'Wang Jialin', 95254, 'Yekaterinburg'), ('3PCE68196', 'Wang Jialin', 88569, 'Yekaterinburg'), ('2CXM58196', 'Wang Jialin', 89714, 'Yekaterinburg'), ('4TBA4166', 'Wang Jialin', 82446, 'Yekaterinburg'), ('6KEE7466', 'Wang Jialin', 86863, 'Yekaterinburg'), ('6PPY34196', 'Wang Jialin', 97067, 'Yekaterinburg'), ('5KAC90196', 'Wang Jialin', 72078, 'Yekaterinburg'), ('7YOB68196', 'Wang Jialin', 78292, 'Yekaterinburg'), ('5CHP3866', 'Wang Jialin', 91984, 'Yekaterinburg'), ('1PKB87196', 'Wang Jialin', 84425, 'Yekaterinburg'), ('0XXA93196', 'Wang Jialin', 94711, 'Yekaterinburg'), ('3KKK2266', 'Wang Jialin', 93706, 'Yekaterinburg'), ('8EPB96196', 'Wang Jialin', 97827, 'Yekaterinburg'), ('3XCB2496', 'Wang Jialin', 73945, 'Yekaterinburg'), ('8BHH29196', 'Wang Jialin', 94134, 'Yekaterinburg'), ('4MBA05196', 'Wang Jialin', 84919, 'Yekaterinburg'), ('9OKY22196', 'Wang Jialin', 88528, 'Yekaterinburg'), ('5XBC6766', 'Wang Jialin', 85861, 'Yekaterinburg'), ('5TOE4666', 'Wang Jialin', 102098, 'Yekaterinburg'), ('4HAP73196', 'Wang Jialin', 70628, 'Yekaterinburg'), ('9CYA97196', 'Wang Jialin', 77917, 'Yekaterinburg'), ('2YXY8866', 'Wang Jialin', 71796, 'Yekaterinburg'), ('2KBX1696', 'Wang Jialin', 81747, 'Yekaterinburg'), ('3HPH5896', 'Wang Jialin', 99224, 'Yekaterinburg'), ('8AXP6966', 'Wang Jialin', 76756, 'Yekaterinburg'), ('6YTT66196', 'Wang Jialin', 78607, 'Yekaterinburg'), ('1POH5296', 'Wang Jialin', 91458, 'Yekaterinburg'), ('4EYT6396', 'Wang Jialin', 84955, 'Yekaterinburg'), ('9TPT98196', 'Wang Jialin', 92732, 'Yekaterinburg'), ('2HMK8596', 'Wang Jialin', 84541, 'Yekaterinburg'), ('8AXO61196', 'Wang Jialin', 88230, 'Yekaterinburg'), ('9EEP0396', 'Wang Jialin', 70069, 'Yekaterinburg'), ('4HEM4066', 'Wang Jialin', 97694, 'Yekaterinburg'), ('5MKC6496', 'Wang Jialin', 97542, 'Yekaterinburg'), ('1PBA8196', 'Wang Jialin', 91527, 'Yekaterinburg'), ('3EXK0466', 'Wang Jialin', 93743, 'Yekaterinburg'), ('8EKC7866', 'Wang Jialin', 93185, 'Yekaterinburg'), ('5XPY4896', 'Wang Jialin', 89714, 'Yekaterinburg'), ('4CPX4066', 'Wang Jialin', 84973, 'Yekaterinburg'), ('0TCO6866', 'Wang Jialin', 93776, 'Yekaterinburg'), ('5HEX5966', 'Wang Jialin', 77677, 'Yekaterinburg'), ('9ECX2896', 'Wang Jialin', 95626, 'Yekaterinburg'), ('0XXO8296', 'Wang Jialin', 81889, 'Yekaterinburg'), ('1TEK7396', 'Wang Jialin', 70433, 'Yekaterinburg'), ('6BBP2896', 'Wang Jialin', 79339, 'Yekaterinburg'), ('9CTO1896', 'Wang Jialin', 81237, 'Yekaterinburg'), ('9ABB10196', 'Wang Jialin', 92522, 'Yekaterinburg'), ('2CCO5296', 'Wang Jialin', 86440, 'Yekaterinburg'), ('9CBP7096', 'Wang Jialin', 90497, 'Yekaterinburg'), ('7OYM5096', 'Wang Jialin', 74971, 'Yekaterinburg'), ('4YOC0766', 'Wang Jialin', 91281, 'Yekaterinburg'), ('5KKM3496', 'Wang Jialin', 70383, 'Yekaterinburg'), ('9MBM80196', 'Wang Jialin', 100410, 'Yekaterinburg'), ('0CTM48196', 'Wang Jialin', 102181, 'Yekaterinburg'), ('0KYC5596', 'Wang Jialin', 82269, 'Yekaterinburg'), ('3EPC5196', 'Wang Jialin', 78846, 'Yekaterinburg'), ('2PXH0796', 'Wang Jialin', 95259, 'Yekaterinburg'), ('8EKY6766', 'Wang Jialin', 86842, 'Yekaterinburg'), ('3BMC0266', 'Wang Jialin', 99286, 'Yekaterinburg'), ('8HKE7366', 'Wang Jialin', 99803, 'Yekaterinburg'), ('8KXY34196', 'Wang Jialin', 90926, 'Yekaterinburg'), ('2CKO9696', 'Wang Jialin', 80931, 'Yekaterinburg'), ('9BBM58196', 'Wang Jialin', 74756, 'Yekaterinburg'), ('5MMK94196', 'Wang Jialin', 85392, 'Yekaterinburg'), ('7MEX2066', 'Wang Jialin', 100218, 'Yekaterinburg'), ('8OKT76196', 'Wang Jialin', 100582, 'Yekaterinburg'), ('8KCH01196', 'Wang Jialin', 101872, 'Yekaterinburg'), ('5EBY9196', 'Wang Jialin', 82981, 'Yekaterinburg'), ('3MCT39196', 'Wang Jialin', 100103, 'Yekaterinburg'), ('9KKO6966', 'Wang Jialin', 93325, 'Yekaterinburg'), ('0YYY8096', 'Wang Jialin', 74145, 'Yekaterinburg'), ('2HEP8666', 'Wang Jialin', 71328, 'Yekaterinburg'), ('8OAK3596', 'Wang Jialin', 97246, 'Yekaterinburg'), ('3MME38196', 'Wang Jialin', 101919, 'Yekaterinburg'), ('8XOX8896', 'Wang Jialin', 78623, 'Yekaterinburg'), ('9XBX6166', 'Wang Jialin', 91659, 'Yekaterinburg'), ('0BYE0996', 'Wang Jialin', 95238, 'Yekaterinburg'), ('0HYX4166', 'Wang Jialin', 100517, 'Yekaterinburg'), ('5KHA2396', 'Wang Jialin', 100979, 'Yekaterinburg'), ('5HAT3766', 'Wang Jialin', 83821, 'Yekaterinburg'), ('4YCC9366', 'Wang Jialin', 94599, 'Yekaterinburg'), ('6YAX2496', 'Wang Jialin', 92966, 'Yekaterinburg'), ('7CKY17196', 'Wang Jialin', 91044, 'Yekaterinburg'), ('7EPT6196', 'Wang Jialin', 82895, 'Yekaterinburg'), ('8TPX8366', 'Wang Jialin', 92778, 'Yekaterinburg'), ('7YPE60196', 'Wang Jialin', 80042, 'Yekaterinburg'), ('1YPM5996', 'Wang Jialin', 93882, 'Yekaterinburg'), ('4CKP1366', 'Wang Jialin', 88120, 'Yekaterinburg'), ('4HEK5096', 'Wang Jialin', 84150, 'Yekaterinburg'), ('2POE0796', 'Wang Jialin', 92218, 'Yekaterinburg'), ('5XOP0366', 'Wang Jialin', 85950, 'Yekaterinburg'), ('8HMC01196', 'Wang Jialin', 95664, 'Yekaterinburg'), ('4MXO0096', 'Wang Jialin', 92787, 'Yekaterinburg'), ('8XOT63196', 'Wang Jialin', 91356, 'Yekaterinburg'), ('9BXE4166', 'Wang Jialin', 73399, 'Yekaterinburg'), ('4EHX92196', 'Wang Jialin', 98624, 'Yekaterinburg')
+INSERT INTO autopark (car_number, name, mileage, city) VALUES ('5OEX7558', 'Skoda Octavia', 95983, 'Penza'), ('2EAM9258', 'Skoda Octavia', 75995, 'Penza'), ('3OHH2958', 'Skoda Octavia', 93143, 'Penza'), ('9TAA8358', 'Skoda Octavia', 78649, 'Penza'), ('9PAA9158', 'Skoda Octavia', 77527, 'Penza'), ('0OAK7858', 'Skoda Octavia', 98704, 'Penza'), ('1HAM6558', 'Skoda Octavia', 100292, 'Penza'), ('8COO1658', 'Skoda Octavia', 77271, 'Penza'), ('5HOO7858', 'Skoda Octavia', 87730, 'Penza'), ('5BXB4658', 'Skoda Octavia', 86593, 'Penza'), ('1PKX5458', 'Skoda Octavia', 91126, 'Penza'), ('8AKB3158', 'Skoda Octavia', 88389, 'Penza'), ('8OCH0658', 'Skoda Octavia', 77862, 'Penza'), ('2EKB8958', 'Skoda Octavia', 85398, 'Penza'), ('1EEX8058', 'Skoda Octavia', 82966, 'Penza'), ('1KBA7658', 'Skoda Octavia', 76330, 'Penza'), ('4MEM5258', 'Skoda Octavia', 98523, 'Penza'), ('6BTP1358', 'Skoda Octavia', 76342, 'Penza'), ('5CTA3658', 'Skoda Octavia', 94155, 'Penza'), ('6CCC3658', 'Skoda Octavia', 71983, 'Penza'), ('8HPA0058', 'Skoda Octavia', 70267, 'Penza'), ('5OBA8658', 'Skoda Octavia', 74442, 'Penza'), ('4XKB0458', 'Skoda Octavia', 78526, 'Penza'), ('1PYA1458', 'Skoda Octavia', 74492, 'Penza'), ('9XTC0058', 'Skoda Octavia', 78507, 'Penza'), ('2BEC8858', 'Skoda Octavia', 95737, 'Penza'), ('9EHE8758', 'Skoda Octavia', 89239, 'Penza'), ('7COY8458', 'Skoda Octavia', 84024, 'Penza'), ('3HYT0858', 'Skoda Octavia', 78613, 'Penza'), ('1EYY1958', 'Skoda Octavia', 91756, 'Penza'), ('7TAM0058', 'Skoda Octavia', 82173, 'Penza'), ('9KKE6658', 'Skoda Octavia', 101771, 'Penza'), ('0XPY0058', 'Skoda Octavia', 92513, 'Penza'), ('9HXK0558', 'Skoda Octavia', 80587, 'Penza'), ('0POK1358', 'Skoda Octavia', 79768, 'Penza'), ('7MYH0558', 'Skoda Octavia', 97183, 'Penza'), ('3MAM1358', 'Skoda Octavia', 77623, 'Penza'), ('5EOO0658', 'Skoda Octavia', 81341, 'Penza'), ('7YKO7958', 'Skoda Octavia', 72721, 'Penza'), ('8KKK9558', 'Skoda Octavia', 73497, 'Penza'), ('3YBX8758', 'Skoda Octavia', 90685, 'Penza'), ('1BKC1158', 'Skoda Octavia', 81386, 'Penza'), ('2HHO3258', 'Skoda Octavia', 85520, 'Penza'), ('4TEK9158', 'Skoda Octavia', 100516, 'Penza'), ('1CTE7158', 'Skoda Octavia', 91166, 'Penza'), ('4EHT4658', 'Skoda Octavia', 101883, 'Penza'), ('0AEX0158', 'Skoda Octavia', 78140, 'Penza'), ('0AYO9358', 'Skoda Octavia', 85222, 'Penza'), ('4OBH8158', 'Skoda Octavia', 72320, 'Penza'), ('0OEA5058', 'Skoda Octavia', 99480, 'Penza')
+INSERT INTO autopark (car_number, name, mileage, city) VALUES ('7BEY6058', 'Volkswagen Tiguan', 81171, 'Penza'), ('6EXE6058', 'Volkswagen Tiguan', 72936, 'Penza'), ('0EXA8958', 'Volkswagen Tiguan', 94651, 'Penza'), ('1YCC7058', 'Volkswagen Tiguan', 94048, 'Penza'), ('8OKM5058', 'Volkswagen Tiguan', 85114, 'Penza'), ('3KXH2158', 'Volkswagen Tiguan', 80644, 'Penza'), ('0AMC7358', 'Volkswagen Tiguan', 78025, 'Penza'), ('9EAO7058', 'Volkswagen Tiguan', 98284, 'Penza'), ('9ABY7958', 'Volkswagen Tiguan', 81762, 'Penza'), ('5ATT6458', 'Volkswagen Tiguan', 99187, 'Penza'), ('8MAH0458', 'Volkswagen Tiguan', 91708, 'Penza'), ('9YEK8058', 'Volkswagen Tiguan', 90160, 'Penza'), ('3CPK6458', 'Volkswagen Tiguan', 94354, 'Penza'), ('8MTM3458', 'Volkswagen Tiguan', 71164, 'Penza'), ('1HHH0158', 'Volkswagen Tiguan', 71388, 'Penza'), ('4HYB7758', 'Volkswagen Tiguan', 72178, 'Penza'), ('1BAC5158', 'Volkswagen Tiguan', 102099, 'Penza'), ('9MKA5058', 'Volkswagen Tiguan', 91753, 'Penza'), ('2AEB2858', 'Volkswagen Tiguan', 72561, 'Penza'), ('5XMO1258', 'Volkswagen Tiguan', 101115, 'Penza')
+INSERT INTO autopark (car_number, name, mileage, city) VALUES ('1TKX7158', 'Wang Jialin', 94585, 'Penza'), ('2CHP3358', 'Wang Jialin', 84220, 'Penza'), ('0HYX8458', 'Wang Jialin', 101467, 'Penza'), ('4PCY1358', 'Wang Jialin', 84421, 'Penza'), ('4CMM6958', 'Wang Jialin', 84754, 'Penza'), ('0ABA2958', 'Wang Jialin', 90171, 'Penza'), ('5XBE9258', 'Wang Jialin', 80348, 'Penza'), ('9KKY2358', 'Wang Jialin', 86969, 'Penza'), ('6MKP0758', 'Wang Jialin', 94006, 'Penza'), ('6OHB2658', 'Wang Jialin', 73181, 'Penza'), ('7XEP6358', 'Wang Jialin', 89052, 'Penza'), ('0HOT8958', 'Wang Jialin', 80516, 'Penza'), ('6CAK1658', 'Wang Jialin', 72396, 'Penza'), ('3OEC4358', 'Wang Jialin', 96203, 'Penza'), ('2OEA5458', 'Wang Jialin', 82242, 'Penza'), ('8OOP5958', 'Wang Jialin', 83472, 'Penza'), ('6BAM5358', 'Wang Jialin', 77499, 'Penza'), ('6EYE4158', 'Wang Jialin', 100334, 'Penza'), ('2OCO0158', 'Wang Jialin', 89334, 'Penza'), ('1YHA1058', 'Wang Jialin', 90691, 'Penza')
+INSERT INTO autopark (car_number, name, mileage, city) VALUES ('9BAO4158', 'Mercedes E 200', 72302, 'Penza'), ('0OCT0358', 'Mercedes E 200', 80075, 'Penza')
+INSERT INTO autopark (car_number, name, mileage, city) VALUES ('2XTE8058', 'Audi A5', 80997, 'Penza')
+SELECT * FROM drivers WHERE driver_name LIKE '%BALACHOV'
+SELECT COUNT(*) FROM drivers WHERE driver_name LIKE '%BALACHOV';
+SELECT * FROM autopark WHERE city = 'Penza'
+SELECT * FROM autopark WHERE car_number = '6PTP57199'
+SELECT * FROM drivers ORDER BY  birthday DESC
+
+
+EXPLAIN ANALYSE SELECT * FROM rides JOIN autopark ON rides.car_number = autopark.car_number WHERE autopark.city = 'Moskow' AND rides.start_time > '2020-06-01' AND rides.end_time < '2020-07-01'
+SELECT * FROM rides JOIN autopark ON rides.car_number = autopark.car_number WHERE autopark.city = 'Moskow' AND rides.start_time > '2020-06-01' AND rides.end_time < '2020-07-01'
+EXPLAIN ANALYZE SELECT * FROM rides JOIN autopark ON rides.car_number = autopark.car_number WHERE autopark.city = 'Moskow' AND rides.start_time > '2020-06-01' AND rides.end_time < '2020-07-01'
+SELECT * FROM rides JOIN autopark ON rides.car_number = autopark.car_number WHERE autopark.city = 'Moskow' AND rides.start_time > '2020-06-01' AND rides.end_time < '2020-07-01'
+EXPLAIN ANALYZE SELECT * FROM rides JOIN autopark ON rides.car_number = autopark.car_number WHERE autopark.city = 'Moskow' AND rides.start_time > '2020-06-01' AND rides.end_time < '2020-07-01'
+SELECT * FROM rides JOIN autopark ON rides.car_number = autopark.car_number WHERE autopark.city = 'Moskow' AND rides.start_time > '2020-06-01' AND rides.end_time < '2020-07-01'
+SELECT * FROM rides WHERE driver = '88766225452'
+ SELECT * FROM rides WHERE car LIKE 'Mercedes %'
+
+
+
+
+EXPLAIN ANALYZE SELECT * FROM rides WHERE car LIKE 'KIA %';
+SELECT * FROM rides INNER JOIN autopark ON rides.car_number = autopark.car_number WHERE autopark.city = 'Moskow'
 
 
 

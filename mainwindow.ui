@@ -65,14 +65,20 @@
        <font>
         <family>Segoe UI</family>
         <italic>true</italic>
-        <bold>false</bold>
+        <bold>true</bold>
        </font>
       </property>
       <property name="cursor" stdset="0">
-       <cursorShape>ArrowCursor</cursorShape>
+       <cursorShape>IBeamCursor</cursorShape>
       </property>
       <property name="mouseTracking">
        <bool>false</bool>
+      </property>
+      <property name="tabletTracking">
+       <bool>false</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::StrongFocus</enum>
       </property>
      </widget>
     </item>

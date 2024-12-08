@@ -3,6 +3,7 @@
 #include <QSqlError>
 #include <QDataStream>
 #include <QSqlDatabase>
+#include <QTextEdit>
 #include <QDebug>
 #include <QStringListModel>
 #include <QSqlQueryModel>
@@ -16,6 +17,7 @@
 #include <fstream>
 #include <iostream>
 #include <ios>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,6 +27,20 @@ MainWindow::MainWindow(QWidget *parent)
     shortcut = new QShortcut(this);
     shortcut->setKey(Qt::CTRL | Qt::Key_Return);
     connect(shortcut, SIGNAL(activated()), this, SLOT(on_pushButton_clicked()));
+    QPixmap pix("./cursor.png");
+    QCursor cur(pix);
+    ui->commandEdit->viewport()->setCursor(cur);
+
+    QPalette m_pal;
+    m_pal.setBrush(QPalette::Window, QBrush(QPixmap("./title.png")));
+    m_pal.setColor(QPalette::Button, QColor(53, 53, 53));
+    m_pal.setColor(QPalette::Base, QColor(128, 128, 128));
+    m_pal.setColor(QPalette::Highlight, QColor(173, 209, 225));
+    m_pal.setColor(QPalette::ButtonText, QColor(255, 255, 255));
+    m_pal.setColor(QPalette::Text, QColor(255, 255, 255));
+    m_pal.setColor(QPalette::WindowText, QColor(255, 255, 255));
+    this->setPalette(m_pal);
+
     std::ifstream out;
     out.open("history.txt");
 
@@ -159,48 +175,58 @@ void MainWindow::on_listView_doubleClicked(const QModelIndex &index)
 void MainWindow::on_light_theme_triggered()
 {
     this->setPalette(style()->standardPalette());
+    QPixmap pix("./cursor_black.png");
+    QCursor cur(pix);
+    ui->commandEdit->viewport()->setCursor(cur);
 }
 
 void MainWindow::on_dark_theme_triggered()
 {
     QPalette m_pal;
-    m_pal.setColor(QPalette::Window, QColor(44, 44, 44));
-    m_pal.setBrush(QPalette::Window, QBrush(QPixmap("C:/Users/jjjjj/OneDrive/Рабочий стол/title.png")));
+    //m_pal.setColor(QPalette::Window, QColor(44, 44, 44));
+    m_pal.setBrush(QPalette::Window, QBrush(QPixmap("./title.png")));
     m_pal.setColor(QPalette::Button, QColor(53, 53, 53));
-    m_pal.setColor(QPalette::Base, QColor(128, 128, 128));
     m_pal.setColor(QPalette::Highlight, QColor(173, 209, 225));
     m_pal.setColor(QPalette::ButtonText, QColor(255, 255, 255));
     m_pal.setColor(QPalette::WindowText, QColor(255, 255, 255));
+    m_pal.setColor(QPalette::Base, QColor(126, 126, 126));
+    m_pal.setColor(QPalette::Text, QColor(255, 255, 255));
+
     this->setPalette(m_pal);
+    QPixmap pix("./cursor.png");
+    QCursor cur(pix);
+    ui->commandEdit->viewport()->setCursor(cur);
+    //this->setCursor(cur);
 }
 
 
 void MainWindow::on_perfect_theme_triggered()
 {
-    QPalette m_pal;
-    m_pal.setColor(QPalette::Window, QColor(44, 44, 44));
-    //m_pal.setBrush(QPalette::Window, QBrush(QPixmap("C:/Users/jjjjj/OneDrive/Рабочий стол/title.png")));
-    m_pal.setColor(QPalette::Button, QColor(53, 53, 53));
+    // QPalette m_pal;
+    // m_pal.setColor(QPalette::Window, QColor(44, 44, 44));
+    // //m_pal.setBrush(QPalette::Window, QBrush(QPixmap("C:/Users/jjjjj/OneDrive/Рабочий стол/title.png")));
+    // m_pal.setColor(QPalette::Button, QColor(53, 53, 53));
 
-    m_pal.setColor(QPalette::Highlight, QColor(173, 209, 225));
-    m_pal.setColor(QPalette::ButtonText, QColor(255, 255, 255));
-    m_pal.setColor(QPalette::WindowText, QColor(255, 255, 255));
-    //m_pal.setBrush(QPalette::Base, QBrush(QPixmap("C:/Users/jjjjj/OneDrive/Рабочий стол/брат стаса.png")));
+    // m_pal.setColor(QPalette::Highlight, QColor(173, 209, 225));
+    // m_pal.setColor(QPalette::ButtonText, QColor(255, 255, 255));
+    // m_pal.setColor(QPalette::WindowText, QColor(255, 255, 255));
+    // //m_pal.setBrush(QPalette::Base, QBrush(QPixmap("C:/Users/jjjjj/OneDrive/Рабочий стол/брат стаса.png")));
 
-    ui->listView->setObjectName("listview");
-    QString styleSheet = QString("QListView#listview { "
-                                 "background-image: url(C:/Users/jjjjj/OneDrive/Рабочий стол/второй дедушка стаса.png); "
-                                 "background-repeat: no-repeat; "
-                                 "background-position: center; "
-                                 "}");
-    ui->listView->setStyleSheet(styleSheet);
-    ui->Table->setObjectName("Table");
-    QString styleSheet2 = QString("QTableView#Table { "
-                                 "background-image: url(C:/Users/jjjjj/OneDrive/Рабочий стол/брат стаса.jpg); "
-                                 "background-repeat: no-repeat; "
-                                 "background-position: center; "
-                                 "}");
-    ui->Table->setStyleSheet(styleSheet2);
-    m_pal.setColor(QPalette::Base, QColor(192, 192, 192));
-    this->setPalette(m_pal);
+    // ui->listView->setObjectName("listview");
+    // QString styleSheet = QString("QListView#listview { "
+    //                              "background-image: url(C:/Users/jjjjj/OneDrive/Рабочий стол/второй дедушка стаса.png); "
+    //                              "background-repeat: no-repeat; "
+    //                              "background-position: center; "
+    //                              "}");
+    // ui->listView->setStyleSheet(styleSheet);
+    // ui->Table->setObjectName("Table");
+    // QString styleSheet2 = QString("QTableView#Table { "
+    //                              "background-image: url(C:/Users/jjjjj/OneDrive/Рабочий стол/брат стаса.jpg); "
+    //                              "background-repeat: no-repeat; "
+    //                              "background-position: center; "
+    //                              "}");
+    // ui->Table->setStyleSheet(styleSheet2);
+    // m_pal.setColor(QPalette::Base, QColor(192, 192, 192));
+    // this->setPalette(m_pal);
+    QMessageBox::information(this, "Идеальная тема", "Вам это не надо");
 }

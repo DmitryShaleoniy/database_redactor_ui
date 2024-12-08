@@ -99,11 +99,13 @@ public:
         commandEdit->setSizePolicy(sizePolicy1);
         QFont font;
         font.setFamilies({QString::fromUtf8("Segoe UI")});
-        font.setBold(false);
+        font.setBold(true);
         font.setItalic(true);
         commandEdit->setFont(font);
-        commandEdit->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CursorShape::ArrowCursor)));
+        commandEdit->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CursorShape::IBeamCursor)));
         commandEdit->setMouseTracking(false);
+        commandEdit->setTabletTracking(false);
+        commandEdit->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
 
         gridLayout->addWidget(commandEdit, 1, 0, 1, 1);
 
