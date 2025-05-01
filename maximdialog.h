@@ -20,6 +20,9 @@ public:
                                  QString &userName    ,
                                  QString &password     );
 
+private slots:
+    void on_show_password_checkStateChanged(const Qt::CheckState &arg1);
+
 private:
     Ui::MaximDialog *ui;
     FILE* user;

@@ -10,6 +10,7 @@ MaximDialog::MaximDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::MaximDialog)
 {
+    //this->setFixedSize(226,335);
     ui->setupUi(this);
 
     std::ifstream out;
@@ -28,6 +29,8 @@ MaximDialog::MaximDialog(QWidget *parent)
         out.close();
     }
     qDebug() << "file closed in maxim dialog";
+    ui->password->setEchoMode(QLineEdit::Password);
+
 }
 
 MaximDialog::~MaximDialog()
@@ -43,3 +46,13 @@ void MaximDialog::getConnectionParameters(QString &databaseName, QString &hostNa
     userName     = ui->login->text()       ;
     password     = ui->password->text()    ;
 }
+
+void MaximDialog::on_show_password_checkStateChanged(const Qt::CheckState &arg1){
+    if(arg1 == Qt::Checked){
+        ui->password->setEchoMode(QLineEdit::Normal);
+    }
+    else{
+        ui->password->setEchoMode(QLineEdit::Password);
+    }
+}
+

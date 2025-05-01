@@ -163,3 +163,29 @@ SELECT * FROM rides INNER JOIN autopark ON rides.car_number = autopark.car_numbe
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT * FROM drivers;
+
+
+
+
+
+
+
+
+
+
